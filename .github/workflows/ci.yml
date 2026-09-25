@@ -1,0 +1,32 @@
+name: DevOps CI Pipeline
+
+# Trigger the pipeline when code is pushed to these branches
+on:
+  push:
+    branches: [ "master", "main" ]
+  pull_request:
+    branches: [ "master", "main" ]
+
+jobs:
+  build-and-test:
+    # Tell GitHub what operating system to run our pipeline on
+    runs-on: ubuntu-latest
+    
+    steps:
+      # 1. Download our repository code onto the runner
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # 2. Install Node.js on the runner
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # 3. Install our project dependencies (Redis)
+      - name: Install dependencies
+        run: npm install
+
+      # 4. A basic test: verify there are no syntax errors in our server file
+      - name: Run syntax check
+        run: node --check index.js

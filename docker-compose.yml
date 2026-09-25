@@ -1,0 +1,16 @@
+services:
+  cache:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+
+  web:
+    build: .
+    ports:
+      - "5000:3000"
+    environment:
+      - PORT=3000
+      - MASSAGE="Hello from Docker Compose!"
+      - REDIS_URL=redis://cache:6379
+    depends_on:
+      - cache
