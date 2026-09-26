@@ -10,7 +10,7 @@ services:
       - "5000:3000"
     environment:
       - PORT=3000
-      - MASSAGE="Hello from Docker Compose!"
+      - MASSAGE="Hello from Docker Compose! and an adtional message from the new request branch"
       - REDIS_URL=redis://cache:6379
     depends_on:
       - cache
